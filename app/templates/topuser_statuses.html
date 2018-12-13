@@ -1,0 +1,40 @@
+{% extends "top.html" %}
+{% block result %}
+	<div>
+		<section class="widget">
+		<header>
+			<span class="icon"></span>
+			<hgroup>
+				<p></p>
+				<h1><p class="text-primary">Statuses Rank</p></h1>
+			</hgroup>
+			<aside>
+				<span>
+					<a href="#">⚙</a>
+					<ul class="settings-dd"></ul>
+				</span>
+			</aside>
+		</header>
+		<div class="content">
+			<table id="myTable" width="100" border="0">
+				<thead>
+					<tr>
+						<th class="header">Top</th>
+						<th class="avatar header">name</th>
+						<th class="header">Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in range(0,10) %}
+					<tr class="odd text-info">
+						<td class="text-danger">Top:{{ loop.index }}</td>
+						<td class="avatar"><img src="{{statuses[i].profile_image_url}}" width="40" height="40"> {{ statuses[i].name }} </td>
+						<td>{{ statuses[i].statuses_count}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		</section>
+	</div>
+{% endblock %}

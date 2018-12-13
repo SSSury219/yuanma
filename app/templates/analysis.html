@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block alert %}
+
+<style>
+div.container div.row div {
+    margin:0px 0px;
+}
+div.container div.row div {
+    background-color: lightgray;
+    border: 1px solid gray;
+    text-align:center;
+}
+</style>
+<div class="twitter">
+    <div class="row"  style="padding:12px 0 0 30px">
+		<!--<form action="/tweet/search" method ="post">-->
+		<!--<div class="col-xs-2"><input type="text" name = 'userid' placeholder="User_id"></div>-->
+			<!--<div class="col-xs-2"><input type='text' name = 'username' placeholder="User_name"></div>-->
+			<!--<div class="col-xs-2"><input type='text' name = 'screen_name' placeholder="Screen_name"></div>-->
+			<!--<div class="col-xs-2"><input type='text' name = 'since_date' placeholder="Since date"></div>-->
+			<!--<div class="col-xs-2"><input type='text' name = 'until_date' placeholder="Until date"></div>-->
+			<!--<div class="col-xs-2"><p class="<input type="submit" value="Search"></div>-->
+		<!--</form>-->
+		<form class="form-inline"  action="/analysis/search" method ="post" >
+		  <div class="form-group" style="margin-right:10px">
+			<!--<label for="exampleInputName2">Name</label>-->
+			<input type="text" style="max-width:150px" class="form-control"  type="text" name = 'source_ip' placeholder="源IP">
+		  </div>
+		  <div class="form-group"  style="margin-right:10px">
+
+			  <input type="text" style="max-width:150px" class="form-control"  type="text" name = 'destination_ip' placeholder="目的IP">
+		  </div>
+			<div class="form-group" style="margin-right:10px">
+			<!--<label for="exampleInputEmail2">Email</label>-->
+			  <input type="text" style="max-width:150px" class="form-control"  type="text" name = 'protocal' placeholder="协议">
+		  </div>
+			<div class="form-group" style="margin-right:10px">
+			<!--<label for="exampleInputEmail2">Email</label>-->
+				<input type="text" id="datepicker" style="max-width:150px" class="form-control"  name = 'since_date' placeholder="起始时间">
+			  <!--<input type="text"  >-->
+		  </div>
+			<div class="form-group" style="margin-right:10px">
+			<!--<label for="exampleInputEmail2">Email</label>-->
+			  <input type="text" id="data1"  style="max-width:150px" class="form-control"  type="text" name = 'until_date' placeholder="结束时间">
+		  </div>
+
+			<div class="form-group">
+			<!--<label for="exampleIniputEmail2">Email</label>-->
+			  <input   class="form-control glyphicon glyphicon-search" aria-hidden="true"  type="submit"  value="分析">
+		  </div>
+		  <!--<button type="submit" class="btn btn-default">Send invitation</button>-->
+						<!--<div class="col-xs-2"><p class="<input type="submit" value="Search"></div>-->
+
+		</form>
+
+    </div>
+	<script>
+	window.onload=function(){
+	var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date('2017-11-01'),
+        maxDate: new Date(),
+        yearRange: [2017,2025]
+    });
+     var picker = new Pikaday(
+    {
+        field: document.getElementById('data1'),
+        firstDay: 1,
+        minDate: new Date('2017-11-01'),
+        maxDate: new Date(),
+        yearRange: [2017,2025]
+    });
+	}
+
+	</script>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 class="text-danger" >{{ get_flashed_messages()[0] }}</h1>
+{% block result %}
+<section class="widget" >
+		<div class="content" >
+			<table id="myTable" style="height:545px;text-align:center " width="50"  border="0">
+				<thead>
+					<tr style="height:40px">
+
+						<th class="header">源IP地址列表</th>
+						<th class="header">访问次数</th>
+						<th class="header">目的IP地址列表</th>
+						<th class="header">访问次数</th>
+
+					</tr>
+				</thead>
+					<tbody>
+						{% for i in range(10) %}
+						<tr class="odd text-info" style="height:50px">
+							<td class="avatar">{{sou[i]['sourceip']}}</td>
+							<td>{{sou[i]['COUNT(*)']}}</td>
+							<td>{{des[i]['destinationip']}}</td>
+							<td>{{des[i]['COUNT(*)']}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+			</table>
+		</div>
+		</section>
+{% endblock %}
+
+{% endblock %}
+
+

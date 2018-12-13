@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{% block alert %}
+
+<style>
+
+div.container div.row div {
+    margin:0px 0px;
+}
+div.container div.row div {
+    background-color: lightgray;
+    border: 1px solid gray;
+    text-align:center;
+}
+</style>
+<div class="twitter">
+    <div class="row"  style="padding:12px 0 0 30px">
+		<form class="form-inline"  action="/website/add" method ="post" >
+		  <div class="form-group" style="margin-right:10px">
+
+			<input type="text" style="max-width:150px" class="form-control"  type="text" name = 'ip' placeholder="IP">
+		  </div>
+		  <div class="form-group"  style="margin-right:10px">
+
+			  <input type="text" style="max-width:150px" class="form-control"  type="text" name = 'web_name' placeholder="网站名">
+		  </div>
+			<div class="form-group" style="margin-right:10px">
+			<!--<label for="exampleInputEmail2">Email</label>-->
+			  <input type="text" style="max-width:150px" class="form-control"  type="text" name = 'classify' placeholder="分类">
+		  </div>
+			<div class="form-group">
+			<!--<label for="exampleIniputEmail2">Email</label>-->
+			  <input   class="form-control glyphicon glyphicon-search" aria-hidden="true"  type="submit"  value="添加">
+		  </div>
+		</form>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block content %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<h1 class="text-danger" >{{ get_flashed_messages()[0] }}</h1>
+<div>
+    <section class="widget">
+			<div class="content">
+			    <div class="widget-container" style="height:800px">
+                    <section class="widget small" style="width:100%;height:795px">
+                        <div id="chart3" style="width:100%;height:790px"></div>
+                            <script type="text/javascript">
+								// 基于准备好的dom，初始化echarts实例
+								var chart3 = echarts.init(document.getElementById('chart3'));
+								var size = 80;
+                                var size1 = 50;
+                                var yy = 200;
+                                var yy1 = 250;
+                                option = {
+                                    title: {
+                                        text: "网站分类图",
+                                        top: "top",
+                                        left: "left",
+                                        textStyle: {
+                                            color: '#f7f7f7'
+                                        }
+                                    },
+                                    tooltip: {
+                                        formatter: '{b}'
+                                    },
+                                    toolbox: {
+                                        show: true,
+                                        feature: {
+                                            restore: {
+                                                show: true
+                                            },
+                                            saveAsImage: {
+                                                show: true
+                                            }
+                                        }
+                                    },
+                                    backgroundColor: '#337ab7',
+                                    animationDuration: 1000,
+                                    animationEasingUpdate: 'quinticInOut',
+                                    series: [{
+                                        name: '知识体系',
+                                        type: 'graph',
+                                        layout: 'force',
+                                        force: {
+                                            repulsion: 60,
+                                            gravity: 0.1,
+                                            edgeLength: 30,
+                                            layoutAnimation: true,
+                                        },
+                                       data: [{
+											x: 0,
+											y: 200,
+											"category": "网站",
+											"name": "网站",
+											"draggable": "true",
+											"symbolSize": 100
+
+										}, {
+											"category": "网站",
+											"name": "音乐",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 10,
+											y: 250
+										}, {
+											"category": "网站",
+											"name": "视频",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 20,
+											y: 200
+										}, {
+											"category": "网站",
+											"name": "购物",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 30,
+											y: 250
+										}, {
+											"category": "网站",
+											"name": "游戏",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 40,
+											y: 200
+										}, {
+											"category": "网站",
+											"name": "学习",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 50,
+											y: 250
+										}, {
+											"category": "网站",
+											"name": "新闻",
+											"draggable": "true",
+											"symbolSize": 80,
+											x: 50,
+											y: 250
+										}, {
+											x: 80,
+											y: yy1,
+											"name": "1号店",
+											"symbolSize": 50,
+											"category": "购物",
+											"draggable": "true"
+										}, {
+											x: 90,
+											y: yy,
+											"name": "CSDN",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 100,
+											y: yy1,
+											"name": "DOTA2",
+											"symbolSize": 50,
+											"category": "游戏",
+											"draggable": "true"
+										}, {
+											x: 110,
+											y: yy,
+											"name": "LOL",
+											"symbolSize": 50,
+											"category": "游戏",
+											"draggable": "true"
+										}, {
+											x: 120,
+											y: yy1,
+											"name": "qq",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 130,
+											y: yy,
+											"name": "乐视",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 140,
+											y: yy1,
+											"name": "京东",
+											"symbolSize": 50,
+											"category": "购物",
+											"draggable": "true"
+										}, {
+											x: 150,
+											y: yy,
+											"name": "优酷",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 160,
+											y: yy1,
+											"name": "咪咕",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 170,
+											y: yy,
+											"name": "唯品会",
+											"symbolSize": 50,
+											"category": "购物",
+											"draggable": "true"
+										}, {
+											x: 180,
+											y: yy1,
+											"name": "土豆",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 190,
+											y: yy,
+											"name": "圣才网",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 200,
+											y: yy1,
+											"name": "多米",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 210,
+											y: yy,
+											"name": "搜狐",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 220,
+											y: yy1,
+											"name": "搜狐新闻",
+											"symbolSize": 50,
+											"category": "新闻",
+											"draggable": "true"
+										}, {
+											x: 230,
+											y: yy,
+											"name": "新浪新闻",
+											"symbolSize": 50,
+											"category": "新闻",
+											"draggable": "true"
+										}, {
+											x: 240,
+											y: yy1,
+											"name": "沪江",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 250,
+											y: yy,
+											"name": "淘宝",
+											"symbolSize": 50,
+											"category": "购物",
+											"draggable": "true"
+										}, {
+											x: 260,
+											y: yy1,
+											"name": "爱奇艺",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 270,
+											y: yy,
+											"name": "百度文库",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 280,
+											y: yy1,
+											"name": "百度新闻",
+											"symbolSize": 50,
+											"category": "新闻",
+											"draggable": "true"
+										}, {
+											x: 290,
+											y: yy,
+											"name": "绝地求生",
+											"symbolSize": 50,
+											"category": "游戏",
+											"draggable": "true"
+										}, {
+											x: 300,
+											y: yy1,
+											"name": "网易",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 310,
+											y: yy,
+											"name": "网易云课堂",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 320,
+											y: yy1,
+											"name": "网易新闻",
+											"symbolSize": 50,
+											"category": "新闻",
+											"draggable": "true"
+										}, {
+											x: 330,
+											y: yy,
+											"name": "腾讯",
+											"symbolSize": 50,
+											"category": "视频",
+											"draggable": "true"
+										}, {
+											x: 340,
+											y: yy1,
+											"name": "腾讯新闻",
+											"symbolSize": 50,
+											"category": "新闻",
+											"draggable": "true"
+										}, {
+											x: 350,
+											y: yy,
+											"name": "苏宁",
+											"symbolSize": 50,
+											"category": "购物",
+											"draggable": "true"
+										}, {
+											x: 360,
+											y: yy1,
+											"name": "虾米",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 370,
+											y: yy,
+											"name": "道客巴巴",
+											"symbolSize": 50,
+											"category": "学习",
+											"draggable": "true"
+										}, {
+											x: 380,
+											y: yy1,
+											"name": "酷狗",
+											"symbolSize": 50,
+											"category": "音乐",
+											"draggable": "true"
+										}, {
+											x: 390,
+											y: yy,
+											"name": "龙神契约",
+											"symbolSize": 50,
+											"category": "游戏",
+											"draggable": "true"
+										}, ],
+										links: [{
+											"source": "网站",
+											"target": "音乐"
+										}, {
+											"source": "网站",
+											"target": "视频"
+										}, {
+											"source": "网站",
+											"target": "购物"
+										}, {
+											"source": "网站",
+											"target": "游戏"
+										}, {
+											"source": "网站",
+											"target": "学习"
+										}, {
+											"source": "网站",
+											"target": "新闻"
+										}, {
+											"source": "购物",
+											"target": "1号店"
+										}, {
+											"source": "学习",
+											"target": "CSDN"
+										}, {
+											"source": "游戏",
+											"target": "DOTA2"
+										}, {
+											"source": "游戏",
+											"target": "LOL"
+										}, {
+											"source": "音乐",
+											"target": "qq"
+										}, {
+											"source": "视频",
+											"target": "乐视"
+										}, {
+											"source": "购物",
+											"target": "京东"
+										}, {
+											"source": "视频",
+											"target": "优酷"
+										}, {
+											"source": "音乐",
+											"target": "咪咕"
+										}, {
+											"source": "购物",
+											"target": "唯品会"
+										}, {
+											"source": "视频",
+											"target": "土豆"
+										}, {
+											"source": "学习",
+											"target": "圣才网"
+										}, {
+											"source": "音乐",
+											"target": "多米"
+										}, {
+											"source": "视频",
+											"target": "搜狐"
+										}, {
+											"source": "新闻",
+											"target": "搜狐新闻"
+										}, {
+											"source": "新闻",
+											"target": "新浪新闻"
+										}, {
+											"source": "学习",
+											"target": "沪江"
+										}, {
+											"source": "购物",
+											"target": "淘宝"
+										}, {
+											"source": "视频",
+											"target": "爱奇艺"
+										}, {
+											"source": "学习",
+											"target": "百度文库"
+										}, {
+											"source": "新闻",
+											"target": "百度新闻"
+										}, {
+											"source": "游戏",
+											"target": "绝地求生"
+										}, {
+											"source": "音乐",
+											"target": "网易"
+										}, {
+											"source": "学习",
+											"target": "网易云课堂"
+										}, {
+											"source": "新闻",
+											"target": "网易新闻"
+										}, {
+											"source": "视频",
+											"target": "腾讯"
+										}, {
+											"source": "新闻",
+											"target": "腾讯新闻"
+										}, {
+											"source": "购物",
+											"target": "苏宁"
+										}, {
+											"source": "音乐",
+											"target": "虾米"
+										}, {
+											"source": "学习",
+											"target": "道客巴巴"
+										}, {
+											"source": "音乐",
+											"target": "酷狗"
+										}, {
+											"source": "游戏",
+											"target": "龙神契约"
+										}],
+
+										categories: [{
+											'name': '网站'
+										}, {
+											'name': '音乐'
+										}, {
+											'name': '购物'
+										}, {
+											'name': '视频'
+										}, {
+											'name': '游戏'
+										}, {
+											'name': '新闻'
+										}, {
+											'name': '学习'
+										}],
+
+                                        roam: false,
+                                        label: {
+                                            normal: {
+                                                show: true,
+                                                position: 'inside',
+                                                formatter: '{b}',
+                                                fontSize: 16,
+                                                fontStyle: '600',
+                                            }
+                                        },
+                                        lineStyle: {
+                                            normal: {
+                                                width: 4,
+                                                color: 'source',
+                                                curveness: 0,
+                                                type: "solid"
+                                            }
+                                        }
+                                    }]
+                                };
+						    chart3.setOption(option);
+				        </script>
+                    </section>
+			    </div>
+		    </div>
+		</section>
+</div>
+{% block result %}
+{% endblock %}
+
+{% endblock %}
+
+

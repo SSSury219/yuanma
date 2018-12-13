@@ -1,0 +1,51 @@
+{% extends "tweet.html" %}
+{% block tweets %}
+
+	<div>
+		<section class="widget">
+		<header>
+			<span class="icon">👤</span>
+			<hgroup>
+				<h1></h1>>
+				<h2>Find: {{num}} tweets</h2>
+			</hgroup>
+			<aside>
+				<span>
+					<a href="#">⚙</a>
+					<ul class="settings-dd">
+						<li><label>Option a</label><div class="checkbox-wrap"><input style="position: absolute; z-index: -1; visibility: hidden;" type="checkbox"><span class="jquery-checkbox" style="-moz-user-select: none;"><span class="mark"><img src="images/empty.png"></span></span></div></li>
+						<li><label>Option b</label><div class="checkbox-wrap"><input checked="checked" style="position: absolute; z-index: -1; visibility: hidden;" type="checkbox"><span class="jquery-checkbox jquery-checkbox-checked" style="-moz-user-select: none;"><span class="mark"><img src="images/empty.png"></span></span></div></li>
+						<li><label>Option c</label><div class="checkbox-wrap"><input style="position: absolute; z-index: -1; visibility: hidden;" type="checkbox"><span class="jquery-checkbox" style="-moz-user-select: none;"><span class="mark"><img src="images/empty.png"></span></span></div></li>
+					</ul>
+				</span>
+			</aside>
+		</header>
+		<div class="content">
+			<table id="myTable" width="100" border="0">
+				<thead>
+					<tr>
+						<th class="avatar header">TWEET</th>
+						<th class="header">Favorite count</th>
+						<th class="header">Retweet count</th>
+						<th class="header">Created Time</th>
+						<th class="header">Analysis</th>
+					</tr>
+				</thead>
+					<tbody>
+						{% for tweet in tweets %}
+						<tr class="odd">
+							<td class="avatar">{{ tweet.text }} </td>
+							<td>{{ tweet.favorite_count}}</td>
+							<td>{{ tweet.retweet_count}}</td>
+							<td>{{ tweet.created_at}}</td>
+							<td><a href="{{ url_for('analysis_tweet',tweet_id=tweet['id'],class_int=1)}}" >Analysis</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+		</div>
+		</section>
+	</div>
+{% endblock %}
+
+

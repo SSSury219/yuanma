@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block alert %}
+<div class="green" style="height:50px">
+	<p style="margin: 15px 100px 10px 250px;font-size:24px;height:40px" >These  analysis are  based  on  existing  data  in  the  database</p>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="widget-container">
+	<section class="widget small" style="height: 398px;">
+			<header >
+					<h1 class="text-primary" >Tweet overview</h1>
+			</header>
+			<table class="table table-hover table-bordered success"  color="{{box['user']['profile_background_color']}}">
+
+		  		<tbody>
+		    <tr>
+				<td width="140px"><img width="60px" src="{{box['user']['profile_image_url']}}"/></td>
+				<td><p class="text-primary">{{box['tweet']['text']}}</p></td>
+			</tr>
+			<tr>
+				<td>Created_at</td>
+				<td>{{box['tweet']['created_at']}}</td>
+			</tr>
+			<tr>
+				<td>User name</td>
+				<td>{{box['user']['name']}}</td>
+			</tr>
+			<tr>
+				<td>Favorite_count</td>
+				<td>{{box['tweet']['favorite_count']}}</td>
+			 </tr>
+			<tr>
+				<td>Retweet_count</td>
+				<td>{{box['tweet']['retweet_count']}}</td>
+			</tr>
+			<tr>
+				<td>user: description</td>
+				<td>{{box['user']['description']}}</td>
+			</tr>
+			<tr>
+				<td>location</td>
+				<td>{{box['user']['location']}}</td>
+			</tr>
+		  </tbody>
+		</table>
+		</section>
+
+	<section class="widget 	small" style="height: 398px;">
+		<header >
+			<h1 class="text-primary" >Collected Data</h1>
+		</header>
+		<table class="table table-hover table-bordered success">
+			<tbody>
+		    <tr>
+				<td class="text-primary" width="350px"><h2>Collect the number of retweets</h2></td>
+				<td  class="text-danger"><p>{{box['num_re']}}</p></td>
+			</tr>
+		 	<tr>
+				<td class="text-primary" width="350px">Collect the number of reply</td>
+				<td  class="text-danger"><p>{{box['num_reply']}}</p></td>
+			</tr>
+
+		  </tbody>
+		</table>
+
+	</section>
+</div>
+<section class="widget">
+		<header>
+			<span class="icon">📈</span>
+			<hgroup>
+				<h1>Time Trends</h1>
+				<h2>Reply and Retweet</h2>
+			</hgroup>
+			<aside>
+				<button type="button"> <a href="{{ url_for('analysis_tweet',tweet_id=box['tweet']['id'],class_int=1)}}">Free</a></button>
+				<button type="button"> <a href="{{ url_for('analysis_tweet',tweet_id=box['tweet']['id'],class_int=2)}}">Hour</a></button>
+				<button type="button"> <a href="{{ url_for('analysis_tweet',tweet_id=box['tweet']['id'],class_int=3)}}">Day </a></button>
+			</aside>
+		</header>
+	 <div id="line" style="width: 100;height:400px;"></div>
+    <script type="text/javascript">
+        var line_chart = echarts.init(document.getElementById('line'));
+        var option ={
+				title: {
+					text: 'Retweet and Reply time trends',
+
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data:['Reply','Retweet']
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						dataZoom: {
+							yAxisIndex: 'none'
+						},
+						dataView: {readOnly: false},
+						magicType: {type: ['line', 'bar']},
+						restore: {},
+						saveAsImage: {}
+					}
+				},
+				xAxis:  {
+					type: 'category',
+					boundaryGap: false,
+					data: ['1','2','3','4','5','6','7']
+				},
+				yAxis: {
+					type: 'value',
+					axisLabel: {
+						formatter: '{value}'
+					}
+				},
+				series: [
+					{
+						name:'Reply',
+						type:'line',
+						data:{{ box['class_reply'] }},
+						markPoint: {
+							data: [
+								{type: 'max', name: 'max'},
+								{type: 'min', name: 'min'}
+							]
+						},
+						markLine: {
+							data: [
+								{type: 'average', name: 'average'}
+							]
+						}
+					},
+					{
+						name:'Retweet',
+						type:'line',
+						data:{{ box['class_re'] }},
+						markPoint: {
+							data: [
+								 {type: 'max', name: 'max'},
+								 {type: 'min', name: 'min'}
+							]
+						},
+						markLine: {
+							data: [
+								{type: 'average', name: 'average'},
+								[{
+									symbol: 'none',
+									x: '90%',
+									yAxis: 'max'
+								}, {
+									symbol: 'circle',
+									label: {
+										normal: {
+											position: 'start',
+											formatter: 'max'
+										}
+									},
+									type: 'max',
+									name: 'max'
+								}]
+							]
+						}
+					}
+				]
+			};
+		// 使用刚指定的配置项和数据显示图表。
+        line_chart.setOption(option);
+    </script>
+
+</section>
+<div class="widget-container">
+	<section class="widget" style="height: 398px;overflow : auto">
+		<header>
+			<span class="icon"></span>
+			<hgroup>
+				<p></p>
+				<h1><p class="text-primary">Reply details</p></h1>
+			</hgroup>
+			<aside>
+				<span>
+
+					<ul class="settings-dd"></ul>
+				</span>
+			</aside>
+		</header>
+		<div class="content">
+			<table id="myTable" width="100" border="0">
+				<thead>
+					<tr>
+						<th class="avatar header"  width="200px">name</th>
+						<th class="header">Tweet</th>
+						<th class="avatar header"  width="200px">Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if box['num_reply']>0 %}
+					{% for i in range(0,box['num_reply'])  %}
+						<tr class="odd text-info">
+							<td class="avatar"><img src="{{box['list_img_url'][i]}}" width="40" height="40">{{ box['list_name'][i] }}</td>
+							<td>{{ box['list_tweet'][i].text}}</td>
+							<td>{{ box['list_tweet'][i].created_at}}</td>
+						</tr>
+					{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+		</section>
+</div>
+{% endblock %}

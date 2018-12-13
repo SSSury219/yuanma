@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title ></title>
+	<script src="/static/jquery.min.js"></script>
+	<script src="/static/echarts.min.js"></script>
+	<link rel="stylesheet" href="/static/pikaday.css">
+	<!--<link rel="stylesheet" href="/static/site.css">-->
+    <link href="{{ url_for('static',filename='bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static',filename='index.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css"/>
+	<script src="/static/pikaday.js"></script>
+	<script src="/static/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="testing">
+<header class="main">
+	<h1 ><strong>基于winpcap的用户行为分析</strong></h1>
+</header>
+<section class="user">
+	<div class="profile-img">
+		<p>你好 candela</p>
+	</div>
+	<div class="buttons">
+		<!--<span  class="button blue"><a href="{{ url_for('index')}}">Existing data</a></span>-->
+		<!--<span type="button" class="btn btn-success" title="Very Sorry"-->
+			<!--data-container="body" data-toggle="popover" data-placement="bottom"-->
+			<!--data-content="正在开发中">Real-time data-->
+		<!--</span>-->
+		<span type="button" class="btn btn-success" title="Comments and suggestions"
+			data-container="body" data-toggle="popover" data-placement="bottom"
+			data-content="please email us：cd_candela@foxmail.com">帮助
+		</span>
+		<span class="button blue"><a href="index.html">登录</a></span>
+	</div>
+</section>
+</div>
+<div class="row">
+	<nav class="col-sm-3 col-md-2"  nav style="height: 1633px; top: 0px;" class="">
+	<ul>
+		<li><a href="{{ url_for('overview')}}"> <span class="icon">🛇</span>总览</a></li>
+		<li><a href="{{ url_for('analysis')}}" ><span class="icon"><img src="/static/analysis.png" width="45" height="40"></span>分析</a></li>
+		<li><a href="{{ url_for('throughput')}}"> <span class="icon">📊</span>流量统计</a></li>
+		<li><a href="{{ url_for('website')}}"> <span class="icon"><img src="/static/website.jpg" width="45" height="40"></span>站点管理</a></li>
+		<li><a href="{{ url_for('createpdf')}}"> <span class="icon glyphicon glyphicon-comment"></span>报表生成</a></li>
+	</ul>
+	</nav>
+	<div class="col-sm-9 col-md-10" style="padding:0">
+	<section class="alert">
+		{% block alert %}
+		{% endblock %}
+	</section>
+	<section class="content">
+		{% block content %}
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		{% endblock %}
+	</section>
+	</div>
+</div>
+<footer class="footer">
+	<p>&copy; CD_candela 2017</p>
+</footer>
+<script>
+$(function () {
+	$("[data-toggle='popover']").popover();
+});
+</script>
+</body>
+</html>

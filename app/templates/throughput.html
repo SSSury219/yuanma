@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block alert %}
+<div class="green" style="height:50px">
+	<p style="margin: 15px 100px 10px 250px;font-size:24px;height:40px" >      基于所有收集到的数据</p>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="widget-container">
+		<div id="demo4" style="min-width:800px;min-height:600px"></div>
+		<script type="text/javascript">
+				//
+ 				var chart4 = echarts.init(document.getElementById('demo4'));
+				option4 = {
+						title: {
+							text: '访问次数统计图'
+						},
+						tooltip : {
+							trigger: 'axis'
+						},
+						legend: {
+							data:['音乐','视频','购物','游戏','学习','新闻','其他']
+						},
+						toolbox: {
+							feature: {
+								saveAsImage: {}
+							}
+						},
+						grid: {
+							left: '3%',
+							right: '4%',
+							bottom: '3%',
+							containLabel: true
+						},
+						xAxis : [
+							{
+								type : 'category',
+								boundaryGap : false,
+								data : ['2017-12-11', '2017-12-13', '2017-12-14', '2017-12-20', '2017-12-21', '2018-1-1', '2018-1-6', '2018-1-8']
+							}
+						],
+						yAxis : [
+							{
+								type : 'value'
+							}
+						],
+						series : [
+							{
+								name:'音乐',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[1, 29, 24124, 0, 0, 1, 270, 187]
+							},
+							{
+								name:'视频',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 11, 811, 699, 27, 0, 22969, 158]
+							},
+							{
+								name:'购物',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 0, 1967, 7, 0, 0, 0, 0]
+							},
+							{
+								name:'游戏',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 29, 962, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'学习',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 10, 329, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'新闻',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 0, 137, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'其他',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 0, 0, 45007, 9140, 0, 90635, 18034]
+							}
+						]
+					};
+
+			 chart4.setOption(option4);
+
+			</script>
+</div>
+<div class="widget-container">
+		<div id="demo" style="min-width:800px;min-height:600px"></div>
+		<script type="text/javascript">
+				//
+ 				var chart2 = echarts.init(document.getElementById('demo'));
+				option = {
+						title: {
+							text: '访问流量统计图（MB）'
+						},
+						tooltip : {
+							trigger: 'axis'
+						},
+						legend: {
+							data:['音乐','视频','购物','游戏','学习','新闻','其他']
+						},
+						toolbox: {
+							feature: {
+								saveAsImage: {}
+							}
+						},
+						grid: {
+							left: '3%',
+							right: '4%',
+							bottom: '3%',
+							containLabel: true
+						},
+						xAxis : [
+							{
+								type : 'category',
+								boundaryGap : false,
+								data : ['2017-12-11', '2017-12-13', '2017-12-14', '2017-12-20', '2017-12-21', '2018-1-1', '2018-1-6', '2018-1-8']
+							}
+						],
+						yAxis : [
+							{
+								type : 'value'
+							}
+						],
+						series : [
+							{
+								name:'音乐',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 21, 8758, 0, 0, 0, 253, 174]
+							},
+							{
+								name:'视频',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 2, 996, 485, 32, 0, 32437, 135]
+							},
+							{
+								name:'购物',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 0, 1297, 2, 0, 0, 0, 0]
+							},
+							{
+								name:'游戏',
+								type:'line',
+								stack: '总量',
+								areaStyle: {normal: {}},
+								data:[0, 24, 655, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'学习',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 0, 103, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'新闻',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 0, 28, 0, 0, 0, 0, 0]
+							},
+							{
+								name:'其他',
+								type:'line',
+								stack: '总量',
+								label: {
+									normal: {
+										show: true,
+										position: 'top'
+									}
+								},
+								areaStyle: {normal: {}},
+								data:[0, 0, 0, 46285, 7056, 0, 118775, 22538]
+							}
+						]
+					};
+
+			 chart2.setOption(option);
+
+			</script>
+</div>
+{% endblock %}

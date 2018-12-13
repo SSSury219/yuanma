@@ -1,0 +1,44 @@
+{% extends "top.html" %}
+{% block result %}
+	<div>
+		<section class="widget">
+		<header>
+			<span class="icon"></span>
+			<hgroup>
+				<p></p>
+				<h1><p class="text-primary">Reply Rank</p></h1>
+			</hgroup>
+			<aside>
+				<span>
+					<a href="#">⚙</a>
+					<ul class="settings-dd"></ul>
+				</span>
+			</aside>
+		</header>
+		<div class="content">
+			<table id="myTable" width="100" border="0">
+				<thead>
+					<tr>
+						<th class="header" width="50px">Top</th>
+						<th class="avatar header"  width="200px">name</th>
+						<th class="header" width="50px">Count</th>
+						<th class="header">Tweet</th>
+						<th class="header">Analysis</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in range(0,10) %}
+					<tr class="odd text-info">
+						<td>Top:{{ loop.index }}</td>
+						<td class="avatar"><img src="{{users[i]['profile_image_url']}}" width="40" height="40">{{ users[i]['name'] }}</td>
+						<td>{{ count[i] }}</td>
+						<td>{{ tweets[i]['text']}}</td>
+						<td><a href="{{ url_for('analysis_tweet',tweet_id=tweets[i]['id'],class_int=1)}}" >Analysis</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		</section>
+	</div>
+{% endblock %}

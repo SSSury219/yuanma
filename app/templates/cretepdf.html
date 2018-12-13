@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{% block alert %}
+
+<style>
+div.container div.row div {
+    margin:0px 0px;
+}
+div.container div.row div {
+    background-color: lightgray;
+    border: 1px solid gray;
+    text-align:center;
+}
+</style>
+<div class="twitter">
+    <div class="row"  style="padding:12px 0 0 30px">
+		<form class="form-inline"  action="/createpdf/result.pdf" method ="post" >
+		  <div class="form-group" style="margin-right:10px">
+				<input type="text" id="datepicker" style="max-width:150px" class="form-control"  name = 'since_date' placeholder="起始时间">
+		  </div>
+			<div class="form-group" style="margin-right:10px">
+
+			  <input type="text" id="data1"  style="max-width:150px" class="form-control"  type="text" name = 'until_date' placeholder="结束时间">
+		  </div>
+			  <input   class="form-control glyphicon glyphicon-search" aria-hidden="true"  type="submit"  value="生成报表">
+		  </div>
+		</form>
+
+    </div>
+    	<script>
+	window.onload=function(){
+	var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date('2017-11-01'),
+        maxDate: new Date(),
+        yearRange: [2017,2025]
+    });
+     var picker = new Pikaday(
+    {
+        field: document.getElementById('data1'),
+        firstDay: 1,
+        minDate: new Date('2017-11-01'),
+        maxDate: new Date(),
+        yearRange: [2017,2025]
+    });
+	}
+
+	</script>
+</div>
+{% endblock %}
+
+{% block content %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<h1 class="text-danger" >{{ get_flashed_messages()[0] }}</h1>
+
+{% block result %}
+{% endblock %}
+
+{% endblock %}
+
+
