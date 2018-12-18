@@ -1,11 +1,24 @@
 #-*- coding=utf-8 -*-
 from app import db
 from mysql_init import mysql_handler
+from sniff_data import *
 import datetime,time
-
+import threading
+# 这个文件主要是从数据库获得数据
 conn = mysql_handler()
 
-#总览的数据,从mysql数据库取出来
+def start_sniff_thread():
+    pass
+
+def run_sniff():
+    sniff()
+
+def monitor_data():
+    severdata=data_plan
+    return serverdata
+
+
+# 总览的数据,从mysql数据库取出来
 def overview_data():
 	dict_info = {}
 	dict_info['list_top10_info'] = conn.select_top10_web()

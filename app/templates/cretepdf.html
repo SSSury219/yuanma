@@ -12,6 +12,8 @@ div.container div.row div {
     text-align:center;
 }
 </style>
+
+// input标签其实可以单独调到某一个页面去，加了form是因为要把前端选择的日期传入到后台去.input可以自动提交form
 <div class="twitter">
     <div class="row"  style="padding:12px 0 0 30px">
 		<form class="form-inline"  action="/createpdf/result.pdf" method ="post" >
@@ -22,11 +24,10 @@ div.container div.row div {
 
 			  <input type="text" id="data1"  style="max-width:150px" class="form-control"  type="text" name = 'until_date' placeholder="结束时间">
 		  </div>
-			  <input   class="form-control glyphicon glyphicon-search" aria-hidden="true"  type="submit"  value="生成报表">
-		  </div>
-		</form>
-
+			  <input class="form-control glyphicon glyphicon-search" aria-hidden="true"  type="submit"  value="生成报表">
+		  </form>
     </div>
+
     	<script>
 	window.onload=function(){
 	var picker = new Pikaday(

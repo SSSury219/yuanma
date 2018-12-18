@@ -3,6 +3,7 @@ import re
 from app import app
 from models import *
 from flask import render_template, request, flash, url_for
+
 #from flask_weasyprint import HTML, render_pdf
 
 #主页（相当于总览）
@@ -10,6 +11,20 @@ from flask import render_template, request, flash, url_for
 def index():
     info_dict = overview_data()
     return render_template('overview.html', info_dict=info_dict)
+
+@app.route('/monitor',methods=['GET','POST'])  # 实时监控静态页面，此时并没有开始和停止
+def monitor():
+        return render_template('monitor.html')
+
+@app.route('/monitor/start',methods=['POST'])
+def start():
+    if request.method=='POST':  # Ajax请求：只要浏览器端发出了一个ajax的post请求，那么就立马返回下一个我这边的流量数据
+        server_data = monitor_data()
+    pass
+
+@app.route('/monitor/stop',methods=['POST'])
+def stop():
+    return render_template('monitor.html')
 
 #总览
 @app.route('/overview')

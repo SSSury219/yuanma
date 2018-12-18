@@ -27,8 +27,13 @@ class mysql_handler:
 			print 'select error'
 		return []
 
+	#新增加对抓包的时间,src,dst,ptl四个字段的查询bySJT
+	def select_now_data(self):
+         pass
+
 	def select_top10_web(self):
 		#sql = 'SELECT webname,count(webname)  FROM detailinfo group by webname order by count(webname) desc;'
+        # 选择网站名，采用求和
 		sql = 'SELECT webname,SUM(size)  FROM detailinfo group by webname order by SUM(size) desc;'
 		result = self.__select(sql)
 		#print len(result)

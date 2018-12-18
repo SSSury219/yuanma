@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block alert %}
+<div class="green" style="height:50px">
+    <p style="margin: 15px 750px 10px 450px;font-size:24px;height:40px" >实时监控
+    <form action="" method="post"></form>
+        <input name="Stop" style="margin-top: -10px;float: right;width: 50px;" aria-hidden="true"  type="submit"  value="Stop">
+        <input name="Start" style="margin-top: -10px;margin-right: 10px;float: right;width: 50px;" aria-hidden="true"  type="submit"  value="Start">
+    </p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="widget-container">
+    <section class="widget small" style="width:78%;min-height: 900px;overflow : auto">
+        <!--折线图-->
+        <div class="content" style="height:450px">
+            <div id="demo1" style="height:400px" ></div>
+            <script type="text/javascript">
+                var serverdata={}
+
+                function datafromserver() {
+                    // $.代表 jQuery.ajax。感觉有点像this.ajax
+                    $.ajax({
+                        type: "POST",
+                        url: "/monitor",
+                        dataType: "json",
+                        success : function(data){
+                            serverdata=data  //从后台获得的jason数据
+                        }
+                    });
+                }
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('demo1'));
+                //让demo1这个div变成Chart类的一个实例
+                //创造随机数据
+                var date = ['2018-12-16 14:09:25','2018-12-16 14:09:26','2018-12-16 14:09:27','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29'];
+                var length=[66,500,200,300,10,300,10,300,10,300,10,300,10,300,10]
+
+                //首先随机创建三十个数据
+
+                // 指定图表的配置项和数据
+                var option = {
+                    xAxis: {
+                        type: 'category',
+                        data: date
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: length,
+                        type: 'line'
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                var next_data_posion=-1
+                // 设置播放间隔。每个2000ms调用一次setInterval函数
+                setInterval(function(){
+                    datafromserver()  //调用Ajax函数从后台获取json数据
+                    date.push(serverdata[date]);    // 从后端获取一个新的流量大小，这里怎么传进来呢
+                    length.push(serverdata[length]);    // 从后端获取一个新的流量大小
+                    length.shift();   //删除第一个数据
+                    date.shift();   //删除第一个数据
+                    next_data_posion=next_data_posion+1
+                    //然后更新Option，这下就相当于把第一秒的数据去掉了，把下一秒的数据给添加进来了，因此达到动态更新流量的效果
+                    myChart.setOption({
+                            xAxis: {
+                                data: date
+                            },
+                            series: [{
+                                data: length
+                            }],
+                            error:function (msg) {
+                                console.log(msg);
+                                alert('系统发生错误');
+                            }
+                        }
+                    );}, 2000)
+            </script>
+        </div>
+
+    </section>
+</div>
+
+{% endblock %}
