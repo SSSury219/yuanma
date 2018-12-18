@@ -12,19 +12,23 @@ def index():
     info_dict = overview_data()
     return render_template('overview.html', info_dict=info_dict)
 
+
 @app.route('/monitor',methods=['GET','POST'])  # 实时监控静态页面，此时并没有开始和停止
 def monitor():
         return render_template('monitor.html')
 
-@app.route('/monitor/start',methods=['POST'])
+
+@app.route('/monitor/start',methods=['POST'])  # 开始监控，得到一个post请求，服务器这边就马上返回一个数据
 def start():
     if request.method=='POST':  # Ajax请求：只要浏览器端发出了一个ajax的post请求，那么就立马返回下一个我这边的流量数据
         server_data = monitor_data()
-    pass
+    return server_data  # 下一秒的流量
+
 
 @app.route('/monitor/stop',methods=['POST'])
 def stop():
-    return render_template('monitor.html')
+    stop_sniff()  # 停止嗅探这个进程
+    return render_template('monitor_stop.html')
 
 #总览
 @app.route('/overview')

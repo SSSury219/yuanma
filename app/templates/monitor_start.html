@@ -2,9 +2,10 @@
 {% block alert %}
 <div class="green" style="height:50px">
     <p style="margin: 15px 750px 10px 450px;font-size:24px;height:40px" >实时监控
-    <form action="" method="post"></form>
+    <form action="monitor_stop.html" method="post">
         <input name="Stop" style="margin-top: -10px;float: right;width: 50px;" aria-hidden="true"  type="submit"  value="Stop">
-        <input name="Start" style="margin-top: -10px;margin-right: 10px;float: right;width: 50px;" aria-hidden="true"  type="submit"  value="Start">
+    </form>
+
     </p>
 </div>
 {% endblock %}

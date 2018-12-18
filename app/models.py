@@ -6,19 +6,26 @@ import datetime,time
 import threading
 # 这个文件主要是从数据库获得数据
 conn = mysql_handler()
+sniff_thread = threading.Thread(target=sniff)
 
-def start_sniff_thread():
-    pass
+# def start_sniff_thread():  # 开启sniff进程
+#     t_sniff=threading.Thread(target=sniff)
+#     t_sniff.start()
+# def stop_sniff_thread()
 
-def run_sniff():
-    sniff()
+def start_sniff():
+    sniff_thread.start()
+    sniff_thread.join()
 
-def monitor_data():
-    severdata=data_plan
-    return serverdata
+def stop_sniff():
+    sniff_thread
+
+def monitor_data(next):  # 这里面一定要开始sniff
+    severdata = data_plan_list[next]
+    return severdata
 
 
-# 总览的数据,从mysql数据库取出来
+# 总览的数据,是从mysql数据库取出来
 def overview_data():
 	dict_info = {}
 	dict_info['list_top10_info'] = conn.select_top10_web()
