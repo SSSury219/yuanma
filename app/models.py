@@ -1,12 +1,17 @@
 #-*- coding=utf-8 -*-
 from app import db
 from mysql_init import mysql_handler
-from sniff_data import *
+from threading import Thread
+from sniff_data import start
+from test import q
+import Queue
 import datetime,time
-import threading
+import json
+flag=1
+t_sniff = Thread(target=start,args=(1,)) # 创建一个待开启的嗅探进程
+t_sniff.daemon = True
 # 这个文件主要是从数据库获得数据
 conn = mysql_handler()
-sniff_thread = threading.Thread(target=sniff)
 
 # def start_sniff_thread():  # 开启sniff进程
 #     t_sniff=threading.Thread(target=sniff)
@@ -14,15 +19,19 @@ sniff_thread = threading.Thread(target=sniff)
 # def stop_sniff_thread()
 
 def start_sniff():
-    sniff_thread.start()
-    sniff_thread.join()
+    global flag
+    print('嗅探进程已经开启')
+    t_sniff.start()
 
 def stop_sniff():
-    sniff_thread
+    global flag
+    flag=0
 
-def monitor_data(next):  # 这里面一定要开始sniff
-    severdata = data_plan_list[next]
-    return severdata
+
+def monitor_data():  # 这里面一定要开始sniff
+    print('monitor_data函数开始')
+    serverdata = json.dumps(q.get())
+    return serverdata
 
 
 # 总览的数据,是从mysql数据库取出来

@@ -23,8 +23,9 @@
                     // $.代表 jQuery.ajax。感觉有点像this.ajax
                     $.ajax({
                         type: "POST",
-                        url: "/monitor",
+                        url: "/monitor/start",
                         dataType: "json",
+                        // data:next_json,
                         success : function(data){
                             serverdata=data  //从后台获得的jason数据
                         }
@@ -34,8 +35,8 @@
                 var myChart = echarts.init(document.getElementById('demo1'));
                 //让demo1这个div变成Chart类的一个实例
                 //创造随机数据
-                var date = ['2018-12-16 14:09:25','2018-12-16 14:09:26','2018-12-16 14:09:27','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29','2018-12-16 14:09:28','2018-12-16 14:09:29'];
-                var length=[66,500,200,300,10,300,10,300,10,300,10,300,10,300,10]
+                var date = ['0'];
+                var length=[0];
 
                 //首先随机创建三十个数据
 
@@ -55,8 +56,12 @@
                 };
 
                 // 使用刚指定的配置项和数据显示图表。
+                // var next_json={
+                //     "value":0
+                // }
+
                 myChart.setOption(option);
-                var next_data_posion=-1
+
                 // 设置播放间隔。每个2000ms调用一次setInterval函数
                 setInterval(function(){
                     datafromserver()  //调用Ajax函数从后台获取json数据
@@ -64,7 +69,7 @@
                     length.push(serverdata[length]);    // 从后端获取一个新的流量大小
                     length.shift();   //删除第一个数据
                     date.shift();   //删除第一个数据
-                    next_data_posion=next_data_posion+1
+                    // next_json.value=next_json.value+1
                     //然后更新Option，这下就相当于把第一秒的数据去掉了，把下一秒的数据给添加进来了，因此达到动态更新流量的效果
                     myChart.setOption({
                             xAxis: {
@@ -78,7 +83,7 @@
                                 alert('系统发生错误');
                             }
                         }
-                    );}, 2000)
+                    );}, 10000)
             </script>
         </div>
 

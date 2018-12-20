@@ -18,17 +18,26 @@ def monitor():
         return render_template('monitor.html')
 
 
-@app.route('/monitor/start',methods=['POST'])  # 开始监控，得到一个post请求，服务器这边就马上返回一个数据
+@app.route('/monitor/start',methods=['GET','POST'])  # 开始监控，得到一个post请求，服务器这边就马上返回一个数据
 def start():
-    if request.method=='POST':  # Ajax请求：只要浏览器端发出了一个ajax的post请求，那么就立马返回下一个我这边的流量数据
+    # if request.form.get('start')=='Start':
+    #     start_sniff()
+    if request.form.get('start')=='Start':  # Ajax请求：只要浏览器端发出了一个ajax的post请求，那么就立马返回下一个我这边的流量数据
+        # 开启嗅探进程
+        start_sniff()
+        return render_template('monitor_start.html')
+    if request.method =='POST':
+        # server_data = "{'2018-12-16 14:09:25':66]"
         server_data = monitor_data()
-    return server_data  # 下一秒的流量
+        print('获得服务器的流量数据:',server_data)
+        return server_data  # 下一秒的流量
 
 
-@app.route('/monitor/stop',methods=['POST'])
+@app.route('/monitor/stop',methods=['GET','POST'])
 def stop():
-    stop_sniff()  # 停止嗅探这个进程
-    return render_template('monitor_stop.html')
+    if request.form.get('stop')=='Stop':
+        stop_sniff()  # 停止嗅探进程
+        return render_template('monitor_stop.html')
 
 #总览
 @app.route('/overview')
