@@ -14,8 +14,8 @@ def get_last_pkt(last_pkt_time):
     print('每一秒的数据开始存储到data_plan_list')
     global data_plan
     each_pkt_dict = {}  # 存储每个包的临时字典变量
-    each_pkt_dict['time']=last_pkt_time
-    each_pkt_dict['length'] = data_plan[last_pkt_time]
+    each_pkt_dict['datatime']=last_pkt_time
+    each_pkt_dict['datalength'] = data_plan[last_pkt_time]
     print(each_pkt_dict)
     q.put(each_pkt_dict)
     # data_plan_list.append(each_pkt_dict)

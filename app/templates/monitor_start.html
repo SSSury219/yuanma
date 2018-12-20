@@ -17,12 +17,12 @@
         <div class="content" style="height:450px">
             <div id="demo1" style="height:400px" ></div>
             <script type="text/javascript">
-                var serverdata
-                //创造随机数据
+                var serverdata={
+                    "datatime":"0",
+                    "datalength":"0"
+                } //
                 var date = ['0'];
-                var length=[100];
-                // var serverdate=''
-                // var serverlength=''
+                var len=['0'];
 
                 function datafromserver() {
                     // $.代表 jQuery.ajax。感觉有点像this.ajax
@@ -30,10 +30,7 @@
                         type: "POST",
                         url: "/monitor/start",
                         dataType: "json",
-                        // data:next_json,
                         success : function(data){
-                            // serverdate=data['time']  //从后台获得的jason数据
-                            // serverlength=data['length']  //从后台获得的jason数据
                             serverdata = data
                         }
                     });
@@ -51,54 +48,45 @@
                         type: 'value'
                     },
                     series: [{
-                        data: length,
+                        data: len,
                         type: 'line'
                     }]
                 };
 
                 // 使用刚指定的配置项和数据显示图表。
-                // var next_json={
-                //     "value":0
-                // }
-
                 myChart.setOption(option);
-
+                var count=0
                 // 设置播放间隔。每个2000ms调用一次setInterval函数
                 setInterval(function(){
                     datafromserver()  //调用Ajax函数从后台获取json数据
-                    // alert(JSON.stringify(serverdata))
-                    // alert(JSON.stringify(serverdata['time']))
-                    // alert(serverdata['length'])
-                    alert(serverdata)
-                    alert(serverdata[time])
-                    date.push('1');    // 从后端获取一个新的流量大小，这里怎么传进来呢
-                    length.push(10);    // 从后端获取一个新的流量大小
+                    var a=serverdata['datatime']
+                    var b=serverdata['datalength']
+                    date.push(a);    // 从后端获取一个新的流量大小，这里怎么传进来呢
+                    len.push(b);    // 从后端获取一个新的流量大小
+                    count=count+1
+                    if (count>=5) {
+                        date.shift();
+                        len.shift();
+                    }
+                    console.log(date)
+                    console.log(len)
 
                     // length.shift();   //删除第一个数据
                     // date.shift();   //删除第一个数据
-                    // next_json.value=next_json.value+1
                     //然后更新Option，这下就相当于把第一秒的数据去掉了，把下一秒的数据给添加进来了，因此达到动态更新流量的效果
                     myChart.setOption({
-                            title: {
-                                text: '实时流量图'
-                            },
                             xAxis: {
-                                type: 'category',
                                 data: date
                             },
-                            yAxis: {
-                                type: 'value'
-                            },
                             series: [{
-                                type: 'line',
-                                data: length
+                                data: len
                             }],
                             // error:function (msg) {
                             //     console.log(msg);
                             //     alert('系统发生错误');
                             // }
                         }
-                    );}, 3000)
+                    );}, 1000)
             </script>
         </div>
 
