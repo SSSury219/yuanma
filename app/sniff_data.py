@@ -14,11 +14,12 @@ def get_last_pkt(last_pkt_time):
     print('每一秒的数据开始存储到data_plan_list')
     global data_plan
     each_pkt_dict = {}  # 存储每个包的临时字典变量
-    each_pkt_dict[last_pkt_time] = data_plan[last_pkt_time]
-    #print(data_plan_list)
+    each_pkt_dict['time']=last_pkt_time
+    each_pkt_dict['length'] = data_plan[last_pkt_time]
+    print(each_pkt_dict)
     q.put(each_pkt_dict)
     # data_plan_list.append(each_pkt_dict)
-    print q.qsize()
+    print('队列大小:', q.qsize())
 
 
 
@@ -27,7 +28,6 @@ def get_last_pkt(last_pkt_time):
 
 # 每一个数据包的统计
 def get_data_plan(pkt_time, pkt_len):
-    print('开始统计每一个数据包')
     global last_pkt_time
     global data_plan
     if not (pkt_time==last_pkt_time):
@@ -41,7 +41,6 @@ def get_data_plan(pkt_time, pkt_len):
 
 
 def packet_parse(pkt):  # 解析每一个包
-    print('开始解析每一个包')
     dic = {}
     now_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 得到当前时间戳，但是数据格式不对，需要转换成str类型
     pkt_lenth = pkt.__len__()
@@ -63,7 +62,7 @@ def packet_parse(pkt):  # 解析每一个包
 def start(signal):
     if signal == 1:
         print('sniff函数已经开启')
-        sniff(filter='host 10.10.4.164', prn=packet_parse)  # prn传入一个函数名，然后sniff会调用这个函数传入捕获的一个包
+        sniff(filter='host 10.16.68.150', prn=packet_parse)  # prn传入一个函数名，然后sniff会调用这个函数传入捕获的一个包
 
 
 # class Capture:

@@ -26,10 +26,9 @@ def start():
         # 开启嗅探进程
         start_sniff()
         return render_template('monitor_start.html')
-    if request.method =='POST':
-        # server_data = "{'2018-12-16 14:09:25':66]"
+    if request.method == 'POST':
         server_data = monitor_data()
-        print('获得服务器的流量数据:',server_data)
+        print('get data from server:', server_data)
         return server_data  # 下一秒的流量
 
 
