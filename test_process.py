@@ -1,6 +1,6 @@
 from multiprocessing import Process, Manager
 from threading import Thread
-from test import dt,lt
+from data_buffer import dt,lt
 
 def func():
     global dt,lt

@@ -3,7 +3,7 @@ from app import db
 from mysql_init import mysql_handler
 from threading import Thread
 from sniff_data import start
-from test import q
+from data_buffer import q
 import Queue
 import datetime,time
 import json
@@ -18,18 +18,20 @@ conn = mysql_handler()
 #     t_sniff.start()
 # def stop_sniff_thread()
 
+
 def start_sniff():
     global flag
     print('嗅探进程已经开启')
     t_sniff.start()
 
+
 def stop_sniff():
+    print('嗅探进程已经关闭')
     global flag
-    flag=0
+    flag = 0
 
 
 def monitor_data():  # 这里面一定要开始sniff
-    print('monitor_data函数开始')
     serverdata = json.dumps(q.get())
     return serverdata
 

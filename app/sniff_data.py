@@ -1,6 +1,6 @@
 #-*- coding=utf-8 -*-
 from scapy.all import *
-from test import q
+from data_buffer import q
 
 # dpkt = sniff(filter='host 10.10.4.164',prn=lambda x:x.summary())
 list = []
@@ -11,20 +11,15 @@ data_plan = {}  # 数据流量的存储：时间(str)与数据大小(int/B),主�
 
 
 def get_last_pkt(last_pkt_time):
-    print('每一秒的数据开始存储到data_plan_list')
     global data_plan
     each_pkt_dict = {}  # 存储每个包的临时字典变量
     each_pkt_dict['datatime']=last_pkt_time
     each_pkt_dict['datalength'] = data_plan[last_pkt_time]
-    print(each_pkt_dict)
+    # print(each_pkt_dict)
     q.put(each_pkt_dict)
     # data_plan_list.append(each_pkt_dict)
-    print('队列大小:', q.qsize())
+    # print('队列大小:', q.qsize())
 
-
-
-# def show_last_pkt(last_pkt_time):
-#     print(last_pkt_time, '的数据大小是：',data_plan[last_pkt_time])
 
 # 每一个数据包的统计
 def get_data_plan(pkt_time, pkt_len):
@@ -43,7 +38,7 @@ def get_data_plan(pkt_time, pkt_len):
 def packet_parse(pkt):  # 解析每一个包
     dic = {}
     now_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 得到当前时间戳，但是数据格式不对，需要转换成str类型
-    pkt_lenth = pkt.__len__()
+    pkt_lenth = pkt.__len__()/1000
     dic['time']=now_time  # 把包暂时存入字典里
     data_plan['time']= now_time  # 每到一个包拿去统计+实时显示
     data_plan['len']= now_time  # 每到一个包的大小拿去统计
@@ -62,7 +57,7 @@ def packet_parse(pkt):  # 解析每一个包
 def start(signal):
     if signal == 1:
         print('sniff函数已经开启')
-        sniff(filter='host 10.16.68.150', prn=packet_parse)  # prn传入一个函数名，然后sniff会调用这个函数传入捕获的一个包
+        sniff(filter='host 10.10.4.186', prn=packet_parse)  # prn传入一个函数名，然后sniff会调用这个函数传入捕获的一个包
 
 
 # class Capture:
